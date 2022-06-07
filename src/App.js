@@ -1,26 +1,24 @@
-import "./app.css";
+import React from "react";
 
-const players = [
-  { id: 1, name: "梅西" },
-  { id: 2, name: "内马尔" },
-  { id: 3, name: "苏亚雷斯" },
-];
-const flag = true;
-const styleObj = { color: "blue" };
-const showTitle = true;
+// 定义函数组件
+function HelloFn() {
+  return <div>这是一个函数组件</div>;
+}
 
+// 定义类组件
+class HelloC extends React.Component {
+  render() {
+    return <div>这是一个类组件</div>;
+  }
+}
+
+// 定义类组件
 function App() {
   return (
-    <div className="app">
-      <ul>
-        {players.map((item) => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
-      <div style={{ color: "red" }}>{flag ? <h1>ok</h1> : "no"}</div>
-      <div style={styleObj}>test</div>
-      <div className="title">test222</div>
-      <div className={showTitle ? "title" : ""}>test333</div>
+    <div className="App">
+      {/* 渲染函数组件 */}
+      <HelloFn></HelloFn>
+      <HelloC />
     </div>
   );
 }
