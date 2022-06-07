@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./app.css";
+
+const players = [
+  { id: 1, name: "梅西" },
+  { id: 2, name: "内马尔" },
+  { id: 3, name: "苏亚雷斯" },
+];
+const flag = true;
+const styleObj = { color: "blue" };
+const showTitle = true;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <ul>
+        {players.map((item) => (
+          <li key={item.id}>{item.name}</li>
+        ))}
+      </ul>
+      <div style={{ color: "red" }}>{flag ? <h1>ok</h1> : "no"}</div>
+      <div style={styleObj}>test</div>
+      <div className="title">test222</div>
+      <div className={showTitle ? "title" : ""}>test333</div>
     </div>
   );
 }
