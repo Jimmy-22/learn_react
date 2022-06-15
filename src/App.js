@@ -1,24 +1,41 @@
 import React from "react";
 
-// 定义函数组件
+// 函数组件
+// function HelloFn() {
+//   const clickHandle = () => {
+//     console.log("事件被触发了");
+//   };
+//   return <button onClick={clickHandle}>点我</button>;
+// }
+
+// 获取事件对象
 function HelloFn() {
-  return <div>这是一个函数组件</div>;
+  const clickHandle = (e) => {
+    e.preventDefault();
+    console.log("事件被触发了", e);
+  };
+  return (
+    <a href="http://www.baidu.com" onClick={clickHandle}>
+      百度
+    </a>
+  );
 }
 
-// 定义类组件
+// 类组件
 class HelloC extends React.Component {
+  clickHandle = () => {
+    console.log("事件被触发了");
+  };
   render() {
-    return <div>这是一个类组件</div>;
+    return <button onClick={this.clickHandle}>点我</button>;
   }
 }
 
-// 定义类组件
 function App() {
   return (
     <div className="App">
-      {/* 渲染函数组件 */}
       <HelloFn></HelloFn>
-      <HelloC />
+      <HelloC></HelloC>
     </div>
   );
 }
