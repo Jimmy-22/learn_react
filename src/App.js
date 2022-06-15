@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { createRef } from 'react'
 
-// 受控表单组件
+// 非受控表单组件
 class InputComponent extends React.Component {
-  state = {
-    msg: 'this is msg'
+  // 使用createRef产生一个存放dom的对象容器
+  msgRef = createRef()
+  changeHandle = () => {
+    console.log(this.msgRef.current.value)
   }
-  changeHander = (e) => {
-    this.setState({ msg: e.target.value })
-  }
+
   render() {
     return (
       <div>
-        <input value={this.state.msg} onChange={this.changeHander} />
+        {/* ref绑定，获取真实dom */}
+        <input ref={this.msgRef} />
+        <button onClick={this.changeHandle}>点我</button>
       </div>
     )
   }
