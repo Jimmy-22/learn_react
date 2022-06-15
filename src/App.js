@@ -1,43 +1,43 @@
 import React from "react";
 
-// 函数组件
-// function HelloFn() {
-//   const clickHandle = () => {
-//     console.log("事件被触发了");
-//   };
-//   return <button onClick={clickHandle}>点我</button>;
-// }
-
-// 获取事件对象
-function HelloFn() {
-  const clickHandle = (e) => {
-    e.preventDefault();
-    console.log("事件被触发了", e);
-  };
-  return (
-    <a href="http://www.baidu.com" onClick={clickHandle}>
-      百度
-    </a>
-  );
-}
-
-// 类组件
-class HelloC extends React.Component {
-  clickHandle = () => {
-    console.log("事件被触发了");
+// 类组件的状态
+class Counter extends React.Component {
+  // 初始化状态
+  state = { count: 0 };
+  // 定义修改数据的方法
+  setCount = () => {
+    this.setState({
+      count: this.state.count + 1,
+    });
   };
   render() {
-    return <button onClick={this.clickHandle}>点我</button>;
+    // 读取状态
+    return <button onClick={this.setCount}>计数器{this.state.count}</button>;
   }
 }
 
 function App() {
   return (
     <div className="App">
-      <HelloFn></HelloFn>
-      <HelloC></HelloC>
+      <Counter></Counter>
     </div>
   );
 }
 
 export default App;
+
+// React 中的状态不可变,不要直接修改状态的值,而是基于当前状态创建新的状态值
+// state = {
+//   count: 0,
+//   list: [1, 2, 3],
+//   person: {
+//     name: "jack",
+//     age: 18,
+//   },
+// };
+// // 基于当前状态创建新值
+// this.setState({
+//   count:this.state.count +1,
+//   list: [...this.state.list,4],
+//   person:{...this.state.person,name:"messi"}
+// })
