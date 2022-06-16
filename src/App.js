@@ -1,30 +1,59 @@
-import React, { createContext } from 'react'
-// 跨组件通信Context
+import React from 'react'
 
-// 1.创建context对象
-const { Provider, Consumer } = createContext()
+function ListItem(props) {
+  const { name, price, info, id, handleDel } = props
 
-// 3.消费数据
-function ComC() {
-  return <Consumer>{(value) => <div>{value}</div>}</Consumer>
+  return (
+    <div>
+      <h3>{name}</h3>
+      <p>{price}</p>
+      <p>{info}</p>
+      <button onClick={() => handleDel(id)}>删除</button>
+    </div>
+  )
 }
 
-function ComA() {
-  return <ComC />
-}
-
-// 2.提供数据
 class App extends React.Component {
   state = {
-    message: 'this is message'
+    list: [
+      {
+        id: 1,
+        name: '超级好吃的棒棒糖',
+        price: 18.8,
+        info: '开业大酬宾，全场8折'
+      },
+      {
+        id: 2,
+        name: '超级好吃的大鸡腿',
+        price: 34.2,
+        info: '开业大酬宾，全场8折'
+      },
+      {
+        id: 3,
+        name: '超级无敌的冰激凌',
+        price: 14.2,
+        info: '开业大酬宾，全场8折'
+      }
+    ]
   }
+
+  handleDel = (id) => {
+    this.setState({
+      list: this.state.list.filter((item) => item.id !== id)
+    })
+  }
+
   render() {
     return (
-      <Provider value={this.state.message}>
-        <div className="App">
-          <ComA />
-        </div>
-      </Provider>
+      <>
+        {this.state.list.map((item) => (
+          <ListItem
+            key={item.id}
+            {...item}
+            handleDel={this.handleDel}
+          ></ListItem>
+        ))}
+      </>
     )
   }
 }
