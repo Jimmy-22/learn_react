@@ -1,42 +1,30 @@
-import React from 'react'
-// 兄弟组件通信
+import React, { createContext } from 'react'
+// 跨组件通信Context
 
-// 子组件A
-function SonA(props) {
-  return (
-    <div>
-      SonA
-      {props.msg}
-    </div>
-  )
+// 1.创建context对象
+const { Provider, Consumer } = createContext()
+
+// 3.消费数据
+function ComC() {
+  return <Consumer>{(value) => <div>{value}</div>}</Consumer>
 }
 
-// 子组件B
-function SonB(props) {
-  return (
-    <div>
-      SonB
-      <button onClick={() => props.changeMsg('new msg')}>点我B</button>
-    </div>
-  )
+function ComA() {
+  return <ComC />
 }
 
+// 2.提供数据
 class App extends React.Component {
-  // 父组件提供状态数据
-  state = { message: 'this is a message' }
-  // 提供修改数据的方法
-  changeMsg = () => {
-    this.setState({ message: 'newMsg' })
+  state = {
+    message: 'this is message'
   }
-
   render() {
     return (
-      <>
-        {/* 接收数据的组件 */}
-        <SonA msg={this.state.message} />
-        {/* 修改数据的组件 */}
-        <SonB changeMsg={this.changeMsg} />
-      </>
+      <Provider value={this.state.message}>
+        <div className="App">
+          <ComA />
+        </div>
+      </Provider>
     )
   }
 }
