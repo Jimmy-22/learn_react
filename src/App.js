@@ -1,30 +1,43 @@
-import React, { createRef } from 'react'
+import React from 'react'
 
-// 非受控表单组件
-class InputComponent extends React.Component {
-  // 使用createRef产生一个存放dom的对象容器
-  msgRef = createRef()
-  changeHandle = () => {
-    console.log(this.msgRef.current.value)
-  }
+// 函数式子组件
+function FSon(props) {
+  console.log(props)
+  return (
+    <div>
+      子组件1
+      {props.msg}
+    </div>
+  )
+}
 
+// 类子组件
+class CSon extends React.Component {
   render() {
     return (
       <div>
-        {/* ref绑定，获取真实dom */}
-        <input ref={this.msgRef} />
-        <button onClick={this.changeHandle}>点我</button>
+        子组件2
+        {this.props.msg}
       </div>
     )
   }
 }
 
-function App() {
-  return (
-    <div className="App">
-      <InputComponent />
-    </div>
-  )
+// 父组件
+class App extends React.Component {
+  state = {
+    message: 'this is msg'
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <div>父组件</div>
+        <FSon msg={this.state.message} />
+        <CSon msg={this.state.message} />
+      </div>
+    )
+  }
 }
 
 export default App
