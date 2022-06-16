@@ -1,27 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import { useEffect, useState } from 'react'
 
-const List = (props) => {
-  const arr = props.colors
-  const lis = arr.map((item, index) => <li key={index}>{item.name}</li>)
-  return <ul>{lis}</ul>
-}
+function App() {
+  const [count, setCount] = useState(0)
 
-List.propTypes = {
-  colors: PropTypes.array
-}
-
-class App extends React.Component {
-  state = {
-    colors: [{ name: 'asss' }]
-  }
-  render() {
-    return (
-      <div>
-        <List colors={this.state.colors} />
-      </div>
-    )
-  }
+  useEffect(() => {
+    console.log('副作用执行了')
+  }, [count])
+  return (
+    <button
+      onClick={() => {
+        setCount(count + 1)
+      }}
+    >
+      {count}
+    </button>
+  )
 }
 
 export default App
