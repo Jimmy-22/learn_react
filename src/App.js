@@ -1,39 +1,42 @@
 import React from 'react'
+// 兄弟组件通信
 
-function Son(props) {
-  function handleClick() {
-    // 3.子组件通过props调用 callback
-    props.changeMsg('new Message')
-  }
+// 子组件A
+function SonA(props) {
   return (
     <div>
+      SonA
       {props.msg}
-      <button onClick={handleClick}>change</button>
+    </div>
+  )
+}
+
+// 子组件B
+function SonB(props) {
+  return (
+    <div>
+      SonB
+      <button onClick={() => props.changeMsg('new msg')}>点我B</button>
     </div>
   )
 }
 
 class App extends React.Component {
-  state = {
-    message: 'this is message!'
-  }
-
-  // 1.提供callback-用于接收数据
-  // 4.将子组件中的数据作为参数传递给callback
-  changeMessage = (newMsg) => {
-    console.log('子组件传过来的数据', newMsg)
-    this.setState({
-      message: newMsg
-    })
+  // 父组件提供状态数据
+  state = { message: 'this is a message' }
+  // 提供修改数据的方法
+  changeMsg = () => {
+    this.setState({ message: 'newMsg' })
   }
 
   render() {
     return (
-      <div>
-        <div>父组件</div>
-        {/* 2.将函数作为属性的值，传给子组件 */}
-        <Son msg={this.state.message} changeMsg={this.changeMessage} />
-      </div>
+      <>
+        {/* 接收数据的组件 */}
+        <SonA msg={this.state.message} />
+        {/* 修改数据的组件 */}
+        <SonB changeMsg={this.changeMsg} />
+      </>
     )
   }
 }
